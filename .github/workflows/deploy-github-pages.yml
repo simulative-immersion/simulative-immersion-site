@@ -1,10 +1,8 @@
 # Build static site and deploy to GitHub Pages.
 # Repo settings → Pages → Build and deployment → Source: GitHub Actions.
 #
-# Vite base must match the default Project Pages URL:
-#   https://<org>.github.io/<repo>/
-# (Delete any repo Actions variable named VITE_BASE_PATH if you previously set it to / for a custom domain.)
-
+# Vite uses a relative asset base (./) so the same build works at
+#   https://<org>.github.io/<repo>/  and  https://<custom-domain>/
 name: Deploy to GitHub Pages
 
 on:
@@ -36,8 +34,6 @@ jobs:
         run: |
           npm ci
           npm run build
-        env:
-          VITE_BASE_PATH: /${{ github.event.repository.name }}/
 
       - uses: actions/upload-pages-artifact@v3
         with:
