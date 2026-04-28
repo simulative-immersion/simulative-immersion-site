@@ -64,11 +64,16 @@ type CopyLayout = {
   kind: 'branch' | 'terminal'
 }
 
+function getNodeEdgeOffset(coordinateSet: CoordinateSet) {
+  return coordinateSet === 'desktop' ? 4.4 : 3.5
+}
+
 function getEdgePath(parent: GraphNode, child: GraphNode, coordinateSet: CoordinateSet) {
   const parentPosition = parent[coordinateSet]
   const childPosition = child[coordinateSet]
-  const startY = parentPosition.y + 4.4
-  const endY = childPosition.y - 4.4
+  const offset = getNodeEdgeOffset(coordinateSet)
+  const startY = parentPosition.y + offset
+  const endY = childPosition.y - offset
 
   if (parent.id === 'more-info') {
     const branchY = coordinateSet === 'desktop' ? 48 : 50
@@ -85,7 +90,7 @@ function getCopyChildPath(child: GraphNode, coordinateSet: CoordinateSet) {
   const childPosition = child[coordinateSet]
   const copyBottomY = coordinateSet === 'desktop' ? 67 : 66
   const branchY = coordinateSet === 'desktop' ? 75 : 76
-  const endY = childPosition.y - 4.4
+  const endY = childPosition.y - getNodeEdgeOffset(coordinateSet)
 
   return `M 50 ${copyBottomY} V ${branchY} H ${childPosition.x} V ${endY}`
 }
@@ -105,7 +110,7 @@ function getCopyLayout(coordinateSet: CoordinateSet): CopyLayout {
 function getCopyPath(selected: GraphNode, coordinateSet: CoordinateSet) {
   const selectedPosition = selected[coordinateSet]
   const copyLayout = getCopyLayout(coordinateSet)
-  const startY = selectedPosition.y + 4.4
+  const startY = selectedPosition.y + getNodeEdgeOffset(coordinateSet)
   const branchY = coordinateSet === 'desktop' ? 42 : 39
 
   return `M ${selectedPosition.x} ${startY} V ${branchY} H ${copyLayout.x} V ${copyLayout.top}`
@@ -126,14 +131,14 @@ function getTerminalCopyLayout(coordinateSet: CoordinateSet): CopyLayout {
 function getTerminalCopyPath(selected: GraphNode, coordinateSet: CoordinateSet) {
   const selectedPosition = selected[coordinateSet]
   const copyLayout = getTerminalCopyLayout(coordinateSet)
-  const startY = selectedPosition.y + 4.4
+  const startY = selectedPosition.y + getNodeEdgeOffset(coordinateSet)
 
   return `M ${selectedPosition.x} ${startY} V ${copyLayout.top}`
 }
 
 function getLeafGraphPath(selected: GraphNode, coordinateSet: CoordinateSet) {
   const selectedPosition = selected[coordinateSet]
-  const startY = selectedPosition.y + 4.4
+  const startY = selectedPosition.y + getNodeEdgeOffset(coordinateSet)
   const branchY = coordinateSet === 'desktop' ? 98 : 97
 
   return `M ${selectedPosition.x} ${startY} V ${branchY} H 50 V 100`
@@ -199,7 +204,12 @@ export function GraphNav({ nodes, activeNode, onSelectNode }: GraphNavProps) {
           {visibleNodes
             .filter((node) => node.children.some((childId) => visibleNodes.some((item) => item.id === childId)))
             .map((node) => (
-              <circle key={`${node.id}-junction`} cx={node.desktop.x} cy={node.desktop.y + 4.4} r="0.45" />
+              <circle
+                key={`${node.id}-junction`}
+                cx={node.desktop.x}
+                cy={node.desktop.y + getNodeEdgeOffset('desktop')}
+                r="0.45"
+              />
             ))}
         </svg>
 
@@ -292,7 +302,12 @@ export function GraphNav({ nodes, activeNode, onSelectNode }: GraphNavProps) {
           {visibleNodes
             .filter((node) => node.children.some((childId) => visibleNodes.some((item) => item.id === childId)))
             .map((node) => (
-              <circle key={`${node.id}-mobile-junction`} cx={node.mobile.x} cy={node.mobile.y + 4.4} r="0.45" />
+              <circle
+                key={`${node.id}-mobile-junction`}
+                cx={node.mobile.x}
+                cy={node.mobile.y + getNodeEdgeOffset('mobile')}
+                r="0.45"
+              />
             ))}
         </svg>
         {sortedMobileNodes.map((node) => (
