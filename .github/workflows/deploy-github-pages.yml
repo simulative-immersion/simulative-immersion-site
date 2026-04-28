@@ -1,10 +1,9 @@
 # Build static site and deploy to GitHub Pages.
 # Repo settings → Pages → Build and deployment → Source: GitHub Actions.
 #
-# Base URL for Vite assets:
-# - Default (no variable): /simulative-immersion-site/ → matches https://<org>.github.io/<repo>/
-# - Custom domain at site root (e.g. https://example.com/): set repo variable VITE_BASE_PATH to /
-#   (Settings → Secrets and variables → Actions → Variables)
+# Vite base must match the default Project Pages URL:
+#   https://<org>.github.io/<repo>/
+# (Delete any repo Actions variable named VITE_BASE_PATH if you previously set it to / for a custom domain.)
 
 name: Deploy to GitHub Pages
 
@@ -38,8 +37,7 @@ jobs:
           npm ci
           npm run build
         env:
-          # Custom root domain → set Actions variable VITE_BASE_PATH to /
-          VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH != '' && vars.VITE_BASE_PATH || format('/{0}/', github.event.repository.name) }}
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
 
       - uses: actions/upload-pages-artifact@v3
         with:

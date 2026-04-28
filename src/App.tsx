@@ -3,7 +3,7 @@ import { GraphNav } from './components/GraphNav'
 import { graphNodes, siteMeta, type NodeId } from './content/site'
 
 const PRODUCT_WORDMARK = 'Simmer.com (visit)'
-const PRODUCT_URL = 'https://simmer.com'
+const PRODUCT_URL = 'https://www.simmer.com'
 const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789./[]{}<>+-=*'
 const SCRAMBLE_COOLDOWN_MS = 1000
 const SIMULATION_FOOTNOTE =
@@ -19,13 +19,13 @@ const RESOURCE_NOTICES: Partial<Record<NodeId, ResourceNotice>> = {
   research: {
     label: 'Research',
     path: '/research',
-    href: 'https://simmer.com/research',
+    href: 'https://www.simmer.com/research',
     visitPhrase: 'visit our research',
   },
   blogs: {
     label: 'Blogs',
     path: '/blog',
-    href: 'https://simmer.com/blog',
+    href: 'https://www.simmer.com/blog',
     visitPhrase: 'visit our blog',
   },
 }
