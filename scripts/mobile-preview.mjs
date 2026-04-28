@@ -24,14 +24,14 @@ const states = [
   {
     name: 'about',
     action: async (page) => {
-      await page.getByRole('button', { name: /cd company/i }).first().click()
+      await page.getByRole('button', { name: /cd \/company/i }).first().click()
       await page.getByRole('button', { name: /about/i }).first().click()
     },
   },
   {
     name: 'more-info',
     action: async (page) => {
-      await page.getByRole('button', { name: /cd company/i }).first().click()
+      await page.getByRole('button', { name: /cd \/company/i }).first().click()
       await page.getByRole('button', { name: /more info/i }).first().click()
     },
   },

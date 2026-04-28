@@ -33,7 +33,7 @@ export const siteMeta = {
 export const graphNodes: GraphNode[] = [
   {
     id: 'seed',
-    label: 'cd company',
+    label: 'cd /company',
     notation: 'root',
     children: ['about', 'more-info'],
     desktop: { x: 50, y: 8 },

@@ -31,7 +31,7 @@ const RESOURCE_NOTICES: Partial<Record<NodeId, ResourceNotice>> = {
 }
 
 const DIAGRAM_NAV: { id: NodeId | null; label: string }[] = [
-  { id: null, label: 'cd company' },
+  { id: null, label: 'cd /company' },
   { id: 'about', label: 'About' },
   { id: 'more-info', label: 'More info' },
   { id: 'research', label: 'Research' },
