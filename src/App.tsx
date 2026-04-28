@@ -142,7 +142,7 @@ function ScrambleWordmark({ label }: ScrambleWordmarkProps) {
     <a
       className="wordmark"
       data-resolved={isResolved}
-      href={isResolved ? PRODUCT_URL : '/'}
+      href={isResolved ? PRODUCT_URL : import.meta.env.BASE_URL}
       aria-label={isResolved ? 'Visit Simmer.com' : 'Simulative Immersion home'}
       onBlur={resetScramble}
       onClick={(event) => {
