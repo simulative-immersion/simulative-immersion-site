@@ -167,8 +167,16 @@ export function GraphNav({ nodes, activeNode, onSelectNode }: GraphNavProps) {
       <div className="graph-desktop" data-copy-kind={desktopBranchCopyLayout?.kind ?? 'none'} aria-hidden="true">
         <svg className="graph-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
           <defs>
-            <marker id="arrow" markerHeight="6" markerWidth="6" orient="auto" refX="5" refY="3">
-              <path d="M 0 0 L 6 3 L 0 6 z" />
+            <marker
+              id="arrow-desktop"
+              markerHeight="1.25"
+              markerUnits="userSpaceOnUse"
+              markerWidth="1.25"
+              orient="auto"
+              refX="1.08"
+              refY="0.625"
+            >
+              <path d="M 0 0 L 1.25 0.625 L 0 1.25 z" />
             </marker>
           </defs>
           {visibleEdges.map(({ parent, child }) => (
@@ -252,8 +260,16 @@ export function GraphNav({ nodes, activeNode, onSelectNode }: GraphNavProps) {
       <div className="graph-mobile" data-copy-kind={mobileBranchCopyLayout?.kind ?? 'none'}>
         <svg className="graph-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
           <defs>
-            <marker id="arrow" markerHeight="6" markerWidth="6" orient="auto" refX="5" refY="3">
-              <path d="M 0 0 L 6 3 L 0 6 z" />
+            <marker
+              id="arrow-mobile"
+              markerHeight="1"
+              markerUnits="userSpaceOnUse"
+              markerWidth="1"
+              orient="auto"
+              refX="0.86"
+              refY="0.5"
+            >
+              <path d="M 0 0 L 1 0.5 L 0 1 z" />
             </marker>
           </defs>
           {visibleEdges.map(({ parent, child }) => (

@@ -8,6 +8,8 @@ const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123
 const SCRAMBLE_COOLDOWN_MS = 1000
 const SIMULATION_FOOTNOTE =
   'If simulation theory is correct, the most interesting outcome is the most likely. Because simulations that are not interesting will be terminated, just like in this version of reality. So arguably, the most important thing is to keep things interesting enough that whoever’s paying the bills on some cosmic AWS… they’ll keep paying the bills. Like, it’s either that or we’re annihilated.'
+const SIMULATION_FOOTNOTE_PREVIEW =
+  'If simulation theory is correct, the most interesting outcome is the most likely. Because simulations that are not interesting will be terminated...'
 type ResourceNotice = {
   label: string
   path: string
@@ -298,12 +300,14 @@ function App() {
               </div>
               <div className="page-footnote-content">
                 <div className="page-footnote-body">
-                  <p className="page-footnote-text">{SIMULATION_FOOTNOTE}</p>
-                  <p className="page-footnote-attribution">— Elon Musk</p>
+                  <p className="page-footnote-text">
+                    {footnoteOpen ? SIMULATION_FOOTNOTE : SIMULATION_FOOTNOTE_PREVIEW}
+                  </p>
+                  {footnoteOpen ? <p className="page-footnote-attribution">— Elon Musk</p> : null}
                 </div>
                 {footnoteOpen ? null : (
                   <span className="page-footnote-show-more" aria-hidden="true">
-                    (Show more)
+                    (show more)
                   </span>
                 )}
               </div>

@@ -227,17 +227,11 @@ samp,
 }
 
 .page-footnote-body {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
   opacity: 0.62;
   transition: opacity 240ms ease;
 }
 
 .page-footnote.is-open .page-footnote-body {
-  display: block;
-  -webkit-line-clamp: unset;
   opacity: 1;
 }
 
@@ -246,16 +240,16 @@ samp,
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--purple);
+  color: rgba(91, 22, 143, 0.78);
   cursor: inherit;
   font-family: var(--cm-sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.15;
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
+  text-underline-offset: 2px;
 }
 
 .page-footnote-text {
@@ -406,12 +400,19 @@ samp,
 
 .graph-lines path {
   fill: none;
-  marker-end: url('#arrow');
   stroke: var(--line);
   stroke-linecap: square;
   stroke-linejoin: miter;
   stroke-width: 1;
   vector-effect: non-scaling-stroke;
+}
+
+.graph-desktop .graph-lines path {
+  marker-end: url('#arrow-desktop');
+}
+
+.graph-mobile .graph-lines path {
+  marker-end: url('#arrow-mobile');
 }
 
 .graph-lines marker path {
