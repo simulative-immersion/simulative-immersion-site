@@ -194,11 +194,43 @@ function App() {
     setActiveNode(targetId)
   }
 
+  const footnoteAnchorRef = useRef<HTMLElement | null>(null)
+  const scrollFootnoteIntoViewAfterOpenRef = useRef(false)
+
   function toggleFootnote() {
     setFootnoteOpen((open) => !open)
   }
 
+  function toggleFootnoteFromHeader() {
+    setFootnoteOpen((open) => {
+      if (!open) {
+        scrollFootnoteIntoViewAfterOpenRef.current = true
+      }
+      return !open
+    })
+  }
+
   const year = new Date().getFullYear()
+
+  useEffect(() => {
+    if (!footnoteOpen || !scrollFootnoteIntoViewAfterOpenRef.current) {
+      return
+    }
+
+    scrollFootnoteIntoViewAfterOpenRef.current = false
+    const node = footnoteAnchorRef.current
+    if (!node) {
+      return
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    requestAnimationFrame(() => {
+      node.scrollIntoView({
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        block: 'end',
+      })
+    })
+  }, [footnoteOpen])
 
   useEffect(() => {
     window.history.replaceState(null, '', window.location.pathname)
@@ -230,7 +262,7 @@ function App() {
             aria-expanded={footnoteOpen}
             className="footnote-marker"
             id={footnoteMarkerId}
-            onClick={toggleFootnote}
+            onClick={toggleFootnoteFromHeader}
             type="button"
           >
             <span aria-hidden="true">†</span>
@@ -247,10 +279,15 @@ function App() {
             onSelectNode={handleSelectNode}
           />
 
-          <footer className="page-footnotes" aria-label="Footnotes">
+          <footer ref={footnoteAnchorRef} className="page-footnotes" aria-label="Footnotes">
             <div className="page-footnotes-rule" aria-hidden="true" />
             <button
               aria-expanded={footnoteOpen}
+              aria-label={
+                footnoteOpen
+                  ? 'Collapse footnote'
+                  : 'Expand footnote — full simulation theory quote'
+              }
               className={`page-footnote ${footnoteOpen ? 'is-open' : ''}`}
               id={footnoteId}
               onClick={toggleFootnote}
@@ -259,9 +296,16 @@ function App() {
               <div className="page-footnote-marker" aria-hidden="true">
                 †
               </div>
-              <div className="page-footnote-body">
-                <p className="page-footnote-text">{SIMULATION_FOOTNOTE}</p>
-                <p className="page-footnote-attribution">— Elon Musk</p>
+              <div className="page-footnote-content">
+                <div className="page-footnote-body">
+                  <p className="page-footnote-text">{SIMULATION_FOOTNOTE}</p>
+                  <p className="page-footnote-attribution">— Elon Musk</p>
+                </div>
+                {footnoteOpen ? null : (
+                  <span className="page-footnote-show-more" aria-hidden="true">
+                    (Show more)
+                  </span>
+                )}
               </div>
             </button>
           </footer>
